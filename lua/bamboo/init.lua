@@ -1,6 +1,6 @@
 local M = {}
 
-M.styles_list = { 'vulgaris', 'multiplex', 'light' }
+M.styles_list = { 'yorumi', 'vulgaris', 'multiplex', 'light' }
 
 ---Change bamboo option (vim.g.bamboo_config.option)
 ---It can't be changed directly by modifying that field due to a Neovim lua bug with global variables (bamboo_config is a global variable)
@@ -42,7 +42,7 @@ end
 
 local default_config = {
   -- Main options --
-  style = 'vulgaris', -- choose between 'vulgaris' (regular), 'multiplex' (greener), and 'light'
+  style = 'yorumi', -- choose between 'vulgaris' (regular), 'multiplex' (greener), and 'light'
   toggle_style_key = nil,
   toggle_style_list = M.styles_list,
   transparent = false, -- don't set background

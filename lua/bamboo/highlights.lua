@@ -157,7 +157,7 @@ hl.syntax = {
   Number = { link = 'Constant' },
   Float = { link = 'Constant' },
   Boolean = { link = 'Constant' },
-  Type = colors.Yellow,
+  Type = vim.tbl_extend('force', { fg = c.yellow }, cfg.code_style.types),
   Typedef = { link = 'Type' },
   Structure = { link = 'Type' },
   StorageClass = { fg = c.yellow, italic = true },

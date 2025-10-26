@@ -61,6 +61,7 @@ local default_config = {
     parameters = { italic = true },
     strings = {},
     variables = {},
+    types = { bold = true },
   },
 
   -- Lualine options --

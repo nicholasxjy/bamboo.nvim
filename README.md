@@ -141,6 +141,7 @@ require('bamboo').setup {
     parameters = { italic = true },
     strings = {},
     variables = {},
+    types = {}
   },
 
   -- Lualine options --

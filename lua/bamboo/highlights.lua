@@ -152,7 +152,11 @@ hl.common = {
 
 hl.syntax = {
   String = vim.tbl_extend('force', { fg = c.green }, cfg.code_style.strings),
-  Constant = colors.Orange,
+  Constant = vim.tbl_extend(
+    'force',
+    { fg = c.constant },
+    cfg.code_style.constants
+  ),
   Character = { link = 'Constant' },
   Number = { link = 'Constant' },
   Float = { link = 'Constant' },
@@ -233,7 +237,7 @@ hl.treesitter = {
   ['@function'] = { link = 'Function' },
   ['@function.builtin'] = vim.tbl_extend(
     'force',
-    { fg = c.orange },
+    { fg = c.function_builtin, bold = true },
     cfg.code_style.functions
   ),
   ['@function.call'] = { link = 'Function' },
@@ -314,7 +318,7 @@ hl.treesitter = {
   ['@tag.builtin'] = { link = '@tag' },
   ['@tag.delimiter'] = { link = 'Delimiter' },
   ['@type'] = { link = 'Type' },
-  ['@type.builtin'] = { link = 'Type' },
+  ['@type.builtin'] = { fg = c.type_builtin, fmt = 'bold' },
   ['@type.definition'] = { link = 'Type' },
   ['@variable'] = vim.tbl_extend(
     'force',

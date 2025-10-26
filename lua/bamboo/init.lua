@@ -62,6 +62,7 @@ local default_config = {
     strings = {},
     variables = {},
     types = { bold = true },
+    constants = {},
   },
 
   -- Lualine options --

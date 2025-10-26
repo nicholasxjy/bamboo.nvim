@@ -27,6 +27,9 @@ return {
     diff_change = '#2a3a57',
     diff_text = '#3a4a67',
     rainbows = {},
+    function_builtin = '#6c67ea',
+    type_builtin = '#FF6D5B',
+    constant = '#ae81ef',
   },
   multiplex = {
     contrast = '#101210',
@@ -56,6 +59,9 @@ return {
     diff_change = '#2a3a57',
     diff_text = '#3a4a67',
     rainbows = {},
+    function_builtin = '#6c67ea',
+    type_builtin = '#FF6D5B',
+    constant = '#ae81ef',
   },
   light = {
     contrast = '#fff8f0',
@@ -85,5 +91,8 @@ return {
     diff_change = '#d2dceb',
     diff_text = '#c2ccdb',
     rainbows = {},
+    function_builtin = '#6c67ea',
+    type_builtin = '#FF6D5B',
+    constant = '#ae81ef',
   },
 }

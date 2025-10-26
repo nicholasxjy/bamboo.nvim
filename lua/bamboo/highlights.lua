@@ -1,6 +1,6 @@
 local c = require('bamboo.colors')
-local util = require('bamboo.util')
 local cfg = vim.g.bamboo_config
+local util = require('bamboo.util')
 local set_hl = vim.api.nvim_set_hl
 
 local M = {}
@@ -43,35 +43,36 @@ local colors = {
   Green = { fg = c.green },
   Blue = { fg = c.blue },
   Purple = { fg = c.purple },
-
-  Type = { fg = '#c6c45e', bold = true },
-  Comment = { fg = '#5f5f87', italic = true },
-  Operator = { fg = '#685742' },
-  Include = { fg = '#4fd6be', bold = true },
-  Return = { fg = '#cc844f', bold = true, italic = true },
-  Coroutine = { fg = '#f19bb6', bold = true, italic = true },
-  Exception = { fg = '#f19bb6', bold = true, italic = true },
-  Modifier = { fg = '#bb9dbd', bold = true, italic = true },
-  Attribute = { fg = '#94aef9' },
-  Bracket = { fg = '#685742', bold = true },
 }
 
 local normal_bg = cfg.transparent and c.none or c.bg0
-local dimmable_bg = cfg.dim_inactive and util.darken(c.bg0, 0.125) or normal_bg
+local dimmable_bg = (cfg.dim_inactive and util.darken(c.bg0, 0.125))
+  or (cfg.transparent and normal_bg or c.bg1)
+
 local light_purple = util.blend(c.purple, c.fg, 0.375)
 local dark_red = util.darken(c.red, 0.2)
 local dark_yellow = util.darken(c.yellow, 0.2)
 local dark_purple = util.darken(c.purple, 0.2)
 local dark_cyan = util.darken(c.cyan, 0.2)
+local rainbows_colors = c.rainbows
+  or {
+    red = c.red,
+    orange = c.orange,
+    yellow = c.yellow,
+    green = c.green,
+    cyan = c.cyan,
+    blue = c.blue,
+    purple = c.purple,
+  }
 local rainblend = 0.25
 local rainbows = {
-  red = util.blend(c.red, c.inverse, rainblend),
-  orange = util.blend(c.orange, c.inverse, rainblend),
-  yellow = util.blend(c.yellow, c.inverse, rainblend),
-  green = util.blend(c.green, c.inverse, rainblend),
-  cyan = util.blend(c.cyan, c.inverse, rainblend),
-  blue = util.blend(c.blue, c.inverse, rainblend),
-  purple = util.blend(c.purple, c.inverse, rainblend),
+  red = util.blend(rainbows_colors.red, c.inverse, rainblend),
+  orange = util.blend(rainbows_colors.orange, c.inverse, rainblend),
+  yellow = util.blend(rainbows_colors.yellow, c.inverse, rainblend),
+  green = util.blend(rainbows_colors.green, c.inverse, rainblend),
+  cyan = util.blend(rainbows_colors.cyan, c.inverse, rainblend),
+  blue = util.blend(rainbows_colors.blue, c.inverse, rainblend),
+  purple = util.blend(rainbows_colors.purple, c.inverse, rainblend),
 }
 
 hl.common = {
@@ -156,7 +157,7 @@ hl.syntax = {
   Number = { link = 'Constant' },
   Float = { link = 'Constant' },
   Boolean = { link = 'Constant' },
-  Type = colors.Type,
+  Type = colors.Yellow,
   Typedef = { link = 'Type' },
   Structure = { link = 'Type' },
   StorageClass = { fg = c.yellow, italic = true },
@@ -167,10 +168,10 @@ hl.syntax = {
   ),
   PreProc = colors.Purple,
   PreCondit = { link = 'PreProc' },
-  Include = colors.Include,
+  Include = { link = 'PreProc' },
   Define = { link = 'PreProc' },
   Keyword = vim.tbl_extend('force', { fg = c.purple }, cfg.code_style.keywords),
-  Exception = colors.Exception,
+  Exception = { link = 'Keyword' },
   Conditional = vim.tbl_extend(
     'force',
     { fg = c.purple },
@@ -184,10 +185,14 @@ hl.syntax = {
   Special = colors.Red,
   SpecialChar = { link = 'Special' },
   Function = vim.tbl_extend('force', { fg = c.blue }, cfg.code_style.functions),
-  Operator = colors.Operator,
+  Operator = { fg = light_purple },
   Tag = colors.Blue,
   Delimiter = colors.LightGrey,
-  Comment = vim.tbl_extend('force', colors.Comment, cfg.code_style.comments),
+  Comment = vim.tbl_extend(
+    'force',
+    { fg = c.light_grey },
+    cfg.code_style.comments
+  ),
   SpecialComment = { link = 'Comment' },
   Todo = { fg = c.contrast, bg = c.purple, bold = true },
 
@@ -198,14 +203,14 @@ hl.syntax = {
 }
 
 hl.treesitter = {
-  ['@attribute'] = colors.Attribute,
+  ['@attribute'] = colors.Cyan,
   ['@attribute.typescript'] = colors.Blue,
   ['@boolean'] = { link = 'Boolean' },
   ['@character'] = { link = 'Character' },
   ['@character.special'] = { link = 'Special' },
   ['@comment'] = vim.tbl_extend(
     'force',
-    colors.Comment,
+    { fg = c.bg_yellow },
     cfg.code_style.comments
   ),
   ['@comment.error'] = { fg = c.contrast, bg = c.red, bold = true },
@@ -228,7 +233,7 @@ hl.treesitter = {
   ['@function'] = { link = 'Function' },
   ['@function.builtin'] = vim.tbl_extend(
     'force',
-    { fg = c.coral },
+    { fg = c.orange },
     cfg.code_style.functions
   ),
   ['@function.call'] = { link = 'Function' },
@@ -242,17 +247,16 @@ hl.treesitter = {
   ['@keyword'] = { link = 'Keyword' },
   ['@keyword.conditional'] = { link = 'Conditional' },
   ['@keyword.conditional.ternary'] = { link = 'Operator' },
-  ['@keyword.coroutine'] = colors.Coroutine,
+  ['@keyword.coroutine'] = { link = 'Keyword' },
   ['@keyword.debug'] = { link = 'Keyword' },
   ['@keyword.directive'] = { link = 'PreProc' },
   ['@keyword.directive.define'] = { fg = c.purple, bold = true },
   ['@keyword.exception'] = { link = 'Exception' },
   ['@keyword.import'] = { link = 'Include' },
-  ['@keyword.export'] = { link = 'Include' },
-  ['@keyword.modifier'] = colors.Modifier,
+  ['@keyword.modifier'] = { fg = c.purple, italic = true },
   ['@keyword.operator'] = { link = 'Keyword' },
   ['@keyword.repeat'] = { link = 'Repeat' },
-  ['@keyword.return'] = colors.Return,
+  ['@keyword.return'] = { link = 'Keyword' },
   ['@keyword.type'] = { link = 'Keyword' },
   ['@label'] = { link = 'Label' },
   ['@label.diff'] = colors.Yellow,
@@ -292,7 +296,7 @@ hl.treesitter = {
   ['@number.float'] = { link = 'Float' },
   ['@operator'] = { link = 'Operator' },
   ['@property'] = { link = '@variable.member' },
-  ['@punctuation.bracket'] = colors.Bracket,
+  ['@punctuation.bracket'] = { link = 'Delimiter' },
   ['@punctuation.delimiter'] = { link = 'Delimiter' },
   ['@punctuation.special'] = { link = 'Special' },
   ['@punctuation.special.diff'] = { link = 'Delimiter' },
@@ -310,7 +314,7 @@ hl.treesitter = {
   ['@tag.builtin'] = { link = '@tag' },
   ['@tag.delimiter'] = { link = 'Delimiter' },
   ['@type'] = { link = 'Type' },
-  -- ['@type.builtin'] = { link = 'Type' },
+  ['@type.builtin'] = { link = 'Type' },
   ['@type.definition'] = { link = 'Type' },
   ['@variable'] = vim.tbl_extend(
     'force',
@@ -333,9 +337,6 @@ hl.treesitter = {
     { fg = c.red },
     cfg.code_style.parameters
   ),
-
-  ['@tag.attribute'] = { fg = '#5f7e97', italic = true },
-  ['@type.builtin'] = { fg = '#FF6347' },
 }
 
 hl.lsp = {
@@ -429,17 +430,6 @@ hl.lsp = {
   ['@lsp.typemod.variable.mutable'] = { fg = util.blend(c.fg, c.green, 0.375) },
   ['@lsp.typemod.variable.static'] = { fg = c.light_blue },
   ['@lsp.typemod.variable.static.rust'] = {},
-
-  ['@lsp.type.class'] = { link = '@type' },
-  ['@lsp.type.modifier'] = { link = '@keyword.modifier' },
-  ['@lsp.type.enum'] = { fg = '#9EC410', bold = true },
-  ['@lsp.typemod.enum'] = { fg = '#9EC410', bold = true },
-  ['@lsp.type.enumMember'] = { fg = '#3649dc', bold = true, italic = true },
-  ['@lsp.typemod.enumMember'] = { fg = '#3649dc', bold = true, italic = true },
-  ['@lsp.type.interface'] = { fg = '#c6a02f', bold = true, italic = true },
-  ['@lsp.type.namespace'] = { fg = '#88a4f7' },
-  ['@lsp.mod.readonly'] = { fg = '#c675b9' },
-  ['@lsp.type.annotation'] = { fg = '#65d5e1' },
 }
 
 hl.treesitter.TreesitterContext = { bg = c.bg1 }

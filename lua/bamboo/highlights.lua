@@ -154,7 +154,7 @@ hl.syntax = {
   String = vim.tbl_extend('force', { fg = c.green }, cfg.code_style.strings),
   Constant = vim.tbl_extend(
     'force',
-    { fg = c.constant },
+    { fg = c.orange },
     cfg.code_style.constants
   ),
   Character = { link = 'Constant' },

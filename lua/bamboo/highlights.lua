@@ -318,7 +318,7 @@ hl.treesitter = {
   ['@tag.builtin'] = { link = '@tag' },
   ['@tag.delimiter'] = { link = 'Delimiter' },
   ['@type'] = { link = 'Type' },
-  ['@type.builtin'] = { fg = c.type_builtin, fmt = 'bold' },
+  ['@type.builtin'] = { fg = c.type_builtin, bold = true },
   ['@type.definition'] = { link = 'Type' },
   ['@variable'] = vim.tbl_extend(
     'force',

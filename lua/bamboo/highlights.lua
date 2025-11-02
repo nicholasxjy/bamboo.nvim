@@ -64,15 +64,14 @@ local rainbows_colors = c.rainbows
     blue = c.blue,
     purple = c.purple,
   }
-local rainblend = 0.25
 local rainbows = {
-  red = util.blend(rainbows_colors.red, c.inverse, rainblend),
-  orange = util.blend(rainbows_colors.orange, c.inverse, rainblend),
-  yellow = util.blend(rainbows_colors.yellow, c.inverse, rainblend),
-  green = util.blend(rainbows_colors.green, c.inverse, rainblend),
-  cyan = util.blend(rainbows_colors.cyan, c.inverse, rainblend),
-  blue = util.blend(rainbows_colors.blue, c.inverse, rainblend),
-  purple = util.blend(rainbows_colors.purple, c.inverse, rainblend),
+  red = rainbows_colors.red,
+  orange = rainbows_colors.orange,
+  yellow = rainbows_colors.yellow,
+  green = rainbows_colors.green,
+  cyan = rainbows_colors.cyan,
+  blue = rainbows_colors.blue,
+  purple = rainbows_colors.purple,
 }
 
 hl.common = {

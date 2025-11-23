@@ -332,7 +332,7 @@ hl.treesitter = {
 }
 
 hl.lsp = {
-  ['@lsp.mod.readonly'] = { link = '@constant' },
+  -- ['@lsp.mod.readonly'] = { link = '@constant' },
   -- workaround to get good static variable highlights in rust
   ['@lsp.mod.static.rust'] = { link = '@lsp.typemod.variable.static' },
   ['@lsp.mod.typeHint'] = { link = '@type' },
